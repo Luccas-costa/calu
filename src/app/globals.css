@@ -26,6 +26,8 @@ body {
   /* user-select: none; */
 }
 
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -53,6 +55,11 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --ink: 0 0% 18%;
+    --ink-light: 0 0% 45%;
+    --red-sun: 0 72% 45%;
+    --paper: 40 20% 96%;
+    --paper-warm: 35 30% 94%;
   }
 
   .dark {
@@ -80,15 +87,89 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --ink: 0 0% 18%;
+    --ink-light: 0 0% 45%;
+    --red-sun: 0 72% 45%;
+    --paper: 40 20% 96%;
+    --paper-warm: 35 30% 94%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  body {
+    font-family: "Montserrat", Arial, sans-serif;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  .font-display {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-weight: 500;
   }
+
+  .font-body {
+    font-family: "Montserrat", Arial, sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-ink {
+    color: hsl(var(--ink));
+  }
+
+  .text-ink-light {
+    color: hsl(var(--ink-light));
+  }
+
+  .text-red-sun {
+    color: hsl(var(--red-sun));
+  }
+
+  .bg-paper {
+    background-color: hsl(var(--paper));
+  }
+
+  .bg-paper-warm {
+    background-color: hsl(var(--paper-warm));
+  }
+
+  .bg-ink {
+    background-color: hsl(var(--ink));
+  }
+
+  .bg-red-sun {
+    background-color: hsl(var(--red-sun));
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes float-tulip {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+.animate-reveal {
+  animation: reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float {
+  animation: float-tulip 4s ease-in-out infinite;
 }

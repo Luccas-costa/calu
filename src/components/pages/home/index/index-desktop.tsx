@@ -1,5 +1,10 @@
 import React from 'react'
+import Hero from '../hero'
 
 export default function IndexDesktop() {
-  return <div>teste</div>
+  return (
+    <main className="overflow-x-hidden">
+      <Hero />
+    </main>
+  )
 }
