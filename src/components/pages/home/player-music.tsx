@@ -110,8 +110,10 @@ export default function MiniPlayer() {
     audioRef.current.volume = isMuted ? 0 : volume
   }, [volume, isMuted])
 
+  const [isMinimized, setIsMinimized] = useState(false)
+
   return (
-    <div className="fixed bottom-4 left-4 z-50 flex w-72 flex-col overflow-hidden rounded-xl bg-[#CB4747]/80 text-white shadow-2xl transition-all hover:scale-[1.02]">
+    <>
       {/* Audio */}
       <audio
         ref={audioRef}
@@ -120,93 +122,122 @@ export default function MiniPlayer() {
         onEnded={() => handleNext()}
       />
 
-      <div className="flex items-center gap-3 p-3">
-        {/* Capa */}
-        <div className="relative h-12 w-12 flex-shrink-0">
-          <Image
-            src={currentSong.cover}
-            alt={currentSong.title}
-            fill
-            className="rounded-md object-cover shadow-sm"
-          />
-        </div>
-
-        {/* Info */}
-        <div className="min-w-0 flex-1">
-          <h4 className="truncate text-sm font-bold">{currentSong.title}</h4>
-          <p className="truncate text-xs text-white/80">{currentSong.artist}</p>
-        </div>
-
-        {/* Controles */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={handlePrev}
-            className="transition-colors hover:text-white/70"
-          >
-            <SkipBack size={18} fill="currentColor" />
-          </button>
-
-          <button
-            onClick={togglePlay}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#CB4747] transition-colors hover:bg-gray-100"
-          >
-            {isPlaying ? (
-              <Pause size={16} fill="currentColor" />
-            ) : (
-              <Play size={16} fill="currentColor" className="ml-0.5" />
-            )}
-          </button>
-
-          <button
-            onClick={handleNext}
-            className="transition-colors hover:text-white/70"
-          >
-            <SkipForward size={18} fill="currentColor" />
-          </button>
-        </div>
-      </div>
-
-      {/* Volume + Progress */}
-      <div className="flex flex-col gap-2 px-3 pb-3">
-        <div className="group flex items-center gap-2">
-          <button
-            onClick={() => setIsMuted(!isMuted)}
-            className="hover:text-white/70"
-          >
-            {isMuted || volume === 0 ? (
-              <VolumeX size={14} />
-            ) : (
-              <Volume2 size={14} />
-            )}
-          </button>
-
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={isMuted ? 0 : volume}
-            onChange={(e) => setVolume(parseFloat(e.target.value))}
-            className="h-1 w-16 cursor-pointer appearance-none rounded-lg bg-white/30 accent-white opacity-0 transition-opacity group-hover:opacity-100"
-          />
-        </div>
-
-        {/* Progress */}
+      {/* PLAYER MINIMIZADO */}
+      {isMinimized ? (
         <div
-          className="h-1.5 w-full cursor-pointer overflow-hidden rounded-full bg-black/20"
-          onClick={handleProgressClick}
+          onClick={() => setIsMinimized(false)}
+          className="fixed bottom-4 left-4 z-50 flex cursor-pointer items-center gap-2 rounded-full bg-[#CB4747] p-2 shadow-xl transition-all hover:scale-105"
         >
-          <div
-            className="relative h-full rounded-full bg-white"
-            style={{
-              width: `${progress}%`,
-              transition: 'width 0.1s linear',
-            }}
-          >
-            <div className="absolute right-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white shadow-[0_0_4px_rgba(255,255,255,0.8)]" />
+          <div className="relative h-10 w-10">
+            <Image
+              src={currentSong.cover}
+              alt={currentSong.title}
+              fill
+              className="rounded-full object-cover"
+            />
+          </div>
+
+          {isPlaying && (
+            <div className="h-2 w-2 animate-pulse rounded-full bg-white" />
+          )}
+        </div>
+      ) : (
+        /* PLAYER NORMAL */
+        <div className="fixed bottom-4 left-4 z-50 flex w-[300px] flex-col overflow-hidden rounded-xl bg-[#CB4747]/80 text-white shadow-2xl transition-all hover:scale-[1.02]">
+          {/* HEADER COM BOTÃO MINIMIZAR */}
+          <div className="flex items-center justify-between px-3 pt-2">
+            <span className="text-xs text-white/70">Tocando agora</span>
+
+            <button
+              onClick={() => setIsMinimized(true)}
+              className="text-white/70 hover:text-white"
+            >
+              –
+            </button>
+          </div>
+
+          <div className="flex items-center gap-3 p-3">
+            {/* Capa */}
+            <div className="relative h-12 w-12 flex-shrink-0">
+              <Image
+                src={currentSong.cover}
+                alt={currentSong.title}
+                fill
+                className="rounded-md object-cover shadow-sm"
+              />
+            </div>
+
+            {/* Info */}
+            <div className="min-w-0 flex-1">
+              <h4 className="truncate text-sm font-bold">
+                {currentSong.title}
+              </h4>
+              <p className="truncate text-xs text-white/80">
+                {currentSong.artist}
+              </p>
+            </div>
+
+            {/* Controles */}
+            <div className="flex items-center gap-2">
+              <button onClick={handlePrev}>
+                <SkipBack size={18} fill="currentColor" />
+              </button>
+
+              <button
+                onClick={togglePlay}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#CB4747]"
+              >
+                {isPlaying ? (
+                  <Pause size={16} fill="currentColor" />
+                ) : (
+                  <Play size={16} fill="currentColor" className="ml-0.5" />
+                )}
+              </button>
+
+              <button onClick={handleNext}>
+                <SkipForward size={18} fill="currentColor" />
+              </button>
+            </div>
+          </div>
+
+          {/* Volume + Progress */}
+          <div className="flex flex-col gap-2 px-3 pb-3">
+            <div className="group flex items-center gap-2">
+              <button onClick={() => setIsMuted(!isMuted)}>
+                {isMuted || volume === 0 ? (
+                  <VolumeX size={14} />
+                ) : (
+                  <Volume2 size={14} />
+                )}
+              </button>
+
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={isMuted ? 0 : volume}
+                onChange={(e) => setVolume(parseFloat(e.target.value))}
+                className="h-1 w-16 cursor-pointer appearance-none rounded-lg bg-white/30 accent-white opacity-0 transition-opacity group-hover:opacity-100"
+              />
+            </div>
+
+            {/* Progress */}
+            <div
+              className="h-1.5 w-full cursor-pointer overflow-hidden rounded-full bg-black/20"
+              onClick={handleProgressClick}
+            >
+              <div
+                className="relative h-full rounded-full bg-white"
+                style={{
+                  width: `${progress}%`,
+                  transition: 'width 0.1s linear',
+                }}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   )
 }

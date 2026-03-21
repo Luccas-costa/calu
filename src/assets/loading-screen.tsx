@@ -48,7 +48,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       style={{ background: '#CA4646' }}
     >
       {/* Container da Tulipa Estática */}
-      <div className="relative mb-8 flex h-[20px] w-[20px] items-center justify-center md:h-[30px] md:w-[30px]">
+      <div className="relative mb-8 flex items-center justify-center">
         <Image
           src={svgTulipa}
           alt="Ícone de Tulipa carregando"

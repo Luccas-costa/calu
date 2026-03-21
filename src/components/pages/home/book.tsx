@@ -2,8 +2,15 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronRight, ArrowLeft, Heart } from 'lucide-react'
+import {
+  ChevronRight,
+  ArrowLeft,
+  Heart,
+  Smartphone,
+  RotateCcw,
+} from 'lucide-react'
 import Image from 'next/image'
+
 // --- TIPOS E DADOS ---
 interface Topic {
   id: string
@@ -295,7 +302,6 @@ const TopicLeft = ({ topic, onBack }: { topic: Topic; onBack: () => void }) => (
   </Paper>
 )
 
-// MÁGICA AQUI: Se não tem imagem, vira só texto contínuo
 const BaseRight = ({ topic }: { topic: Topic }) => (
   <div
     className="absolute inset-0 h-full w-full"
@@ -320,8 +326,6 @@ const BaseRight = ({ topic }: { topic: Topic }) => (
       ) : (
         // Layout SEM foto: Apenas a continuação do texto (rightText) e o número da página
         <div className="flex h-full flex-col">
-          {/* O espaçamento abaixo garante que o texto comece na mesma altura do texto da página esquerda (pulando a área do botão/título) */}
-
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-700 sm:text-base">
             {topic.rightText}
           </p>
@@ -395,9 +399,26 @@ export default function LoveBook() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center overflow-hidden bg-zinc-200 p-4 font-sans sm:p-8">
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-zinc-200 p-4 font-sans sm:p-8">
+      {/* TELA DE AVISO: Só aparece em telas pequenas e em pé (Portrait) */}
+      <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#4A2F1D] px-6 text-center text-[#C5A059] md:hidden portrait:flex landscape:hidden">
+        <div className="relative mb-6 flex h-20 w-20 items-center justify-center rounded-full border-2 border-[#C5A059]/30 bg-[#C5A059]/10">
+          <Smartphone size={40} className="absolute animate-pulse" />
+          <RotateCcw
+            size={20}
+            className="animate-spin-slow absolute -right-2 -top-2"
+          />
+        </div>
+        <h2 className="mb-2 font-serif text-2xl">Vire o celular</h2>
+        <p className="max-w-xs text-sm opacity-80">
+          Para a melhor experiência, vire seu celular de lado (modo paisagem).
+        </p>
+      </div>
+
       <div
-        className="relative aspect-[1/1.2] w-full max-w-[800px] sm:aspect-[1.6/1]"
+        // ÚNICA MUDANÇA NA SUA ESTRUTURA: Tirei o aspect-[1/1.2] e deixei fixo o aspect-[1.6/1].
+        // Também aumentei o max-w para 1000px, assim ele aproveita bem o espaço e não fica anão.
+        className="relative aspect-[1.6/1] w-[95vw] max-w-[1000px] sm:w-full"
         style={{ perspective: '2500px' }}
       >
         <motion.div
