@@ -1,0 +1,15 @@
+.sliderTrack {
+    display: flex;
+    width: max-content;
+    animation: scrollText 140s linear infinite;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}

@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 
+import fonts from '@/styles/globals/fonts.module.css'
 import IndexDesktop from '@/components/pages/home/index/index-desktop'
 import IndexMobile from '@/components/pages/home/index/index-mobile'
 
@@ -22,7 +23,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="h-screen w-screen bg-black text-white">
+    <div className={`${fonts.monserrat} h-screen w-screen bg-black text-white`}>
       {isMobile ? <IndexMobile /> : <IndexDesktop />}
     </div>
   )
