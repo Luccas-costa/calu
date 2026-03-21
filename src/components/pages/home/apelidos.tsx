@@ -53,7 +53,7 @@ export default function Apelidos({ isFaixa }: SkillsProps) {
         className="relative h-[55px] w-full overflow-hidden bg-[#CA4546]"
       >
         <div
-          className={`flex h-full translate-x-[-14px] items-center gap-[20px] font-medium text-zinc-900 screen550:gap-[30px] screen550:text-xl screen630:gap-[50px] screen630:text-2xl ${sliderStyle.sliderTrack} ${styles.monserrat}`}
+          className={`flex h-full translate-x-[-14px] items-center gap-[20px] text-zinc-900 screen550:gap-[30px] screen550:text-xl screen630:gap-[50px] screen630:text-2xl ${sliderStyle.sliderTrack} ${styles.monserrat}`}
         >
           {duplicated.map((text, index) => (
             <React.Fragment key={index}>

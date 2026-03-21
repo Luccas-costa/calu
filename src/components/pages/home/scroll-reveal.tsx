@@ -33,6 +33,7 @@ export default function ScrollReveal({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Mantém a opacidade 0 até a animação começar
           el.style.animationDelay = `${delay}ms`
           el.classList.add(animMap[direction])
           observer.unobserve(el)
@@ -47,7 +48,8 @@ export default function ScrollReveal({
   }, [delay, direction])
 
   return (
-    <div ref={ref} className={`contents opacity-0 ${className}`}>
+    // Removido o 'contents', adicionado um block/inline-block natural
+    <div ref={ref} className={`opacity-0 ${className}`}>
       {children}
     </div>
   )

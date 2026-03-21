@@ -10,10 +10,33 @@ const config: Config = {
   theme: {
     extend: {
       animation: {
+        reveal: 'reveal 0.8s cubic-bezier(0.25, 0.25, 0, 1) forwards',
+        'reveal-left':
+          'reveal-left 0.8s cubic-bezier(0.25, 0.25, 0, 1) forwards',
+        'reveal-right':
+          'reveal-right 0.8s cubic-bezier(0.25, 0.25, 0, 1) forwards',
+        'reveal-scale':
+          'reveal-scale 0.8s cubic-bezier(0.25, 0.25, 0, 1) forwards',
         spotlight: 'spotlight 2s ease .75s 1 forwards',
         spinslow: 'spin 20s linear infinite',
       },
       keyframes: {
+        reveal: {
+          '0%': { opacity: '0', transform: 'translateY(40px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'reveal-left': {
+          '0%': { opacity: '0', transform: 'translateX(-40px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        'reveal-right': {
+          '0%': { opacity: '0', transform: 'translateX(40px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        'reveal-scale': {
+          '0%': { opacity: '0', transform: 'scale(0.8)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
         spotlight: {
           '0%': {
             opacity: '0',
