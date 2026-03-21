@@ -11,7 +11,7 @@ import {
 } from 'lucide-react'
 import Image from 'next/image'
 
-// Nossa "playlist" local
+// Playlist
 const PLAYLIST = [
   {
     title: 'Andei Só',
@@ -25,6 +25,12 @@ const PLAYLIST = [
     src: '/music/better-together.mp3',
     cover: '/music/capas/better-together-capa.jpg',
   },
+  {
+    title: 'Seja para mim',
+    artist: 'Maneva',
+    src: '/music/maneva.mp3',
+    cover: '/music/capas/maneva-capa.jpg',
+  },
 ]
 
 export default function MiniPlayer() {
@@ -37,77 +43,85 @@ export default function MiniPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const currentSong = PLAYLIST[currentSongIndex]
 
-  // Lida com o Play/Pause
+  // Play / Pause
   const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause()
-      } else {
-        audioRef.current.play()
-      }
-      setIsPlaying(!isPlaying)
+    if (!audioRef.current) return
+
+    if (isPlaying) {
+      audioRef.current.pause()
+    } else {
+      audioRef.current.play().catch(() => {})
     }
+
+    setIsPlaying(!isPlaying)
   }
 
-  // Pula para a próxima música
+  // Próxima música (com loop)
   const handleNext = () => {
     setCurrentSongIndex((prev) => (prev + 1) % PLAYLIST.length)
+    setProgress(0)
     setIsPlaying(true)
   }
 
-  // Volta para a música anterior
+  // Música anterior
   const handlePrev = () => {
     setCurrentSongIndex((prev) => (prev === 0 ? PLAYLIST.length - 1 : prev - 1))
+    setProgress(0)
     setIsPlaying(true)
   }
 
-  // Atualiza a barra de progresso com animação
+  // Atualiza progresso
   const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      const currentTime = audioRef.current.currentTime
-      const duration = audioRef.current.duration
-      if (duration) {
-        setProgress((currentTime / duration) * 100)
-      }
+    if (!audioRef.current) return
+
+    const currentTime = audioRef.current.currentTime
+    const duration = audioRef.current.duration
+
+    if (duration) {
+      setProgress((currentTime / duration) * 100)
     }
   }
 
-  // Lida com o clique na barra de progresso para avançar a música
+  // Clique na barra
   const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (audioRef.current) {
-      const bar = e.currentTarget
-      const clickPosition = e.clientX - bar.getBoundingClientRect().left
-      const percentage = clickPosition / bar.offsetWidth
-      audioRef.current.currentTime = percentage * audioRef.current.duration
-    }
+    if (!audioRef.current) return
+
+    const bar = e.currentTarget
+    const clickPosition = e.clientX - bar.getBoundingClientRect().left
+    const percentage = clickPosition / bar.offsetWidth
+
+    audioRef.current.currentTime = percentage * audioRef.current.duration
   }
 
-  // Efeito para trocar de música automaticamente
+  // 🔥 TROCA DE MÚSICA + AUTOPLAY CONFIÁVEL
   useEffect(() => {
-    if (isPlaying && audioRef.current) {
-      audioRef.current.play()
+    if (!audioRef.current) return
+
+    audioRef.current.load()
+
+    if (isPlaying) {
+      audioRef.current.play().catch(() => {})
     }
   }, [currentSongIndex, isPlaying])
 
-  // Efeito para controle de volume
+  // Volume
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = isMuted ? 0 : volume
-    }
+    if (!audioRef.current) return
+    audioRef.current.volume = isMuted ? 0 : volume
   }, [volume, isMuted])
 
   return (
     <div className="fixed bottom-4 left-4 z-50 flex w-72 flex-col overflow-hidden rounded-xl bg-[#CB4747]/80 text-white shadow-2xl transition-all hover:scale-[1.02]">
-      {/* Elemento de áudio invisível */}
+      {/* Audio */}
       <audio
         ref={audioRef}
         src={currentSong.src}
         onTimeUpdate={handleTimeUpdate}
-        onEnded={handleNext}
+        onEnded={() => handleNext()}
       />
 
       <div className="flex items-center gap-3 p-3">
-        {/* Capa do Álbum */}
+        {/* Capa */}
         <div className="relative h-12 w-12 flex-shrink-0">
           <Image
             src={currentSong.cover}
@@ -117,13 +131,13 @@ export default function MiniPlayer() {
           />
         </div>
 
-        {/* Informações da Música */}
+        {/* Info */}
         <div className="min-w-0 flex-1">
           <h4 className="truncate text-sm font-bold">{currentSong.title}</h4>
           <p className="truncate text-xs text-white/80">{currentSong.artist}</p>
         </div>
 
-        {/* Controles Principais */}
+        {/* Controles */}
         <div className="flex items-center gap-2">
           <button
             onClick={handlePrev}
@@ -131,6 +145,7 @@ export default function MiniPlayer() {
           >
             <SkipBack size={18} fill="currentColor" />
           </button>
+
           <button
             onClick={togglePlay}
             className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#CB4747] transition-colors hover:bg-gray-100"
@@ -141,6 +156,7 @@ export default function MiniPlayer() {
               <Play size={16} fill="currentColor" className="ml-0.5" />
             )}
           </button>
+
           <button
             onClick={handleNext}
             className="transition-colors hover:text-white/70"
@@ -150,7 +166,7 @@ export default function MiniPlayer() {
         </div>
       </div>
 
-      {/* Controles Secundários (Volume) e Barra de Progresso */}
+      {/* Volume + Progress */}
       <div className="flex flex-col gap-2 px-3 pb-3">
         <div className="group flex items-center gap-2">
           <button
@@ -163,6 +179,7 @@ export default function MiniPlayer() {
               <Volume2 size={14} />
             )}
           </button>
+
           <input
             type="range"
             min="0"
@@ -174,7 +191,7 @@ export default function MiniPlayer() {
           />
         </div>
 
-        {/* Barra de Progresso Animada */}
+        {/* Progress */}
         <div
           className="h-1.5 w-full cursor-pointer overflow-hidden rounded-full bg-black/20"
           onClick={handleProgressClick}
@@ -186,7 +203,6 @@ export default function MiniPlayer() {
               transition: 'width 0.1s linear',
             }}
           >
-            {/* Bolinha brilhante na ponta do progresso */}
             <div className="absolute right-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white shadow-[0_0_4px_rgba(255,255,255,0.8)]" />
           </div>
         </div>

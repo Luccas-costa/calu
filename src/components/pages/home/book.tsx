@@ -3,43 +3,146 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, ArrowLeft, Heart } from 'lucide-react'
-
+import Image from 'next/image'
 // --- TIPOS E DADOS ---
 interface Topic {
   id: string
   title: string
   desc: string
   content: string
+  imageUrl?: string // Link da foto (opcional)
+  rightText?: string // Texto de continuação para a página da direita (opcional)
 }
 
 const topicsData: Topic[] = [
   {
     id: '01',
-    title: 'O Primeiro Olhar',
+    title: 'Quando precisar de um elogio',
     desc: 'Como tudo começou...',
     content:
-      'Naquele dia, tudo parecia normal, até os nossos olhares se cruzarem. Foi como se o tempo tivesse parado por um segundo. A partir dali, eu soube que a minha vida nunca mais seria a mesma. Cada detalhe daquele momento ficou gravado na minha memória para sempre.',
+      'Se em algum momento você esquecer o quão incrível é, volta aqui e lê isso com calma. Você é, sem exagero nenhum, uma das pessoas mais bonitas que eu já vi mas não só por fora. O seu jeito, o seu sorriso, a forma como você fala, tudo em você tem algo que prende e encanta. Tem dias que talvez você não se veja assim, eu sei… mas eu vejo. Vejo em cada detalhe, até nos que você acha imperfeitos. E são justamente esses detalhes que fazem você ser única. Seus',
+    // Exemplo COM foto:
+    rightText:
+      'olhos têm um brilho que eu não sei explicar, mas sei que poderia passar horas olhando sem enjoar. Seu sorriso tem um poder absurdo de melhorar qualquer momento, inclusive os meus piores dias. Então, quando a insegurança bater, lembra disso: você é linda, de um jeito raro, verdadeiro e impossível de ignorar. E, pra mim, sempre vai ser bobona.',
   },
   {
     id: '02',
-    title: 'Nossas Viagens',
+    title: 'Quando estiver com saudades',
     desc: 'Aventuras pelo mundo.',
     content:
-      'Lembrar de cada lugar que conhecemos juntos me enche de alegria. Não importa o destino, o que faz a viagem ser perfeita é ter você ao meu lado. Mal posso esperar pelas nossas próximas aventuras e pelas histórias que ainda vamos construir.',
+      'Quero que você leia isso como se fosse um abraço meu chegando até você, porque mesmo eu estando aqui, uma parte de mim nunca saiu do seu lado. Eu sei que não é fácil ficar longe, mas pensa que não falta tanto assim… logo eu tô de volta aí com você, como sempre, e cada vez que a gente se reencontra, parece que tudo faz ainda mais sentido. E enquanto esse momento não chega, me liga, sério, eu amo ouvir sua voz, amo conversar com você, e isso sempre dá um jeitinho de diminuir a saudade."',
+    // Exemplo SEM foto, funcionando como continuação do texto:
+    imageUrl: '/calu/saudades.jpeg',
   },
   {
     id: '03',
-    title: 'Risadas Sem Fim',
+    title: 'Quando não conseguir mimir',
     desc: 'Nossas piadas internas.',
     content:
-      'O seu sorriso é a minha parte favorita do dia. Nossas brincadeiras, as piadas que só nós entendemos e as crises de riso de madrugada são os pequenos momentos que tornam o nosso amor tão leve e especial.',
+      'Se você não conseguir dormir, lê isso com calma e imagina que eu tô aí do seu lado, deitadinho com você, te abraçando e fazendo carinho até você relaxar. Mesmo de longe, eu tô com você. Agora uma historinha… Era uma vez um menino chamado Luquinha que adorava olhar pras estrelas. Toda noite ele ficava em silêncio observando o céu, imaginando histórias e fazendo pedidos. Um dia, ele percebeu uma estrela diferente, mais brilhante, que sempre',
+    rightText:
+      'chamava sua atenção, e isso fazia ele sorrir sem perceber. Com o tempo, ele começou a sentir que não estava sozinho, como se aquela estrela estivesse ali por ele. E aí ele começou a contar seus pensamentos pra ela, baixinho, como se fosse um segredo só dos dois. Falava sobre o dia dele, sobre o que sentia e até sobre alguém especial que fazia o coração dele ficar mais leve. E mesmo sem resposta, ele sentia como se estivesse sendo ouvido. Até que, numa noite tranquila, ele fechou os olhos com um sorriso calmo e adormeceu, sentindo uma paz diferente. Igual você pode fazer agora, sabendo que eu tô com você, te cuidando, até você dormir.',
   },
   {
     id: '04',
-    title: 'O Futuro',
+    title: 'Quando ficar preocupada',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Se você estiver preocupada, para um pouquinho e lê isso com calma, como se eu estivesse falando baixinho com você. Eu sei que às vezes a cabeça não para e os pensamentos ficam voltando toda hora, deixando tudo mais pesado do que realmente é. Mas você não precisa carregar tudo sozinha, tá? Você é mais forte do que imagina e já passou por coisas que provam isso. Respira fundo devagar e tenta acalmar o coração',
+    rightText:
+      'As coisas vão se ajeitando aos poucos, no tempo certo, mesmo quando parece que nada está dando certo. Nem tudo precisa ser resolvido agora, e tá tudo bem ir com calma, um passo de cada vez. Eu tô aqui com você em todos esses momentos, até nos mais difíceis. Se quiser, me chama, me conta o que tá passando na sua cabeça, eu vou te ouvir e ficar do seu lado. Você não precisa enfrentar nada sozinha, eu sempre vou estar aqui pra te apoiar e te lembrar que tudo vai ficar bem, mesmo que demore um pouquinho.',
+  },
+  {
+    id: '05',
+    title: 'Precisando de motivação',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Tem dias que tudo parece mais difícil, né? Como se a energia sumisse e até as coisas simples pesassem mais do que deveriam. Mas não esquece: você não chegou até aqui por acaso. Cada passo seu teve esforço, teve coragem, teve você insistindo mesmo quando não era fácil. E isso diz muito sobre quem você é. Você não precisa provar nada pra ninguém, só continuar no seu ritmo',
+    rightText:
+      'Não se cobra tanto, de verdade. Você já tá fazendo muito mais do que imagina. Às vezes, continuar já é uma vitória enorme. E mesmo nos dias mais lentos, você ainda tá indo pra frente. Eu admiro isso em você. E se faltar motivação, lembra que eu tô aqui pra te dar um empurrãozinho, pra te lembrar do quanto você é capaz e do quanto ainda tem pra conquistar. Você não tá sozinha, eu tô com você em cada passo.',
+  },
+  {
+    id: '06',
+    title: 'Opniões de filmes e series',
     desc: 'O que ainda vamos viver.',
     content:
       'Quando fecho os olhos e imagino o futuro, tudo o que eu vejo inclui você. Nossos planos, nossa casa, nossos sonhos... Construir uma vida ao seu lado é o meu maior desejo e a minha maior certeza.',
+  },
+  {
+    id: '07',
+    title: 'Vontade de me ver',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Deu vontade de me ver do nada? Porque eu sei bem como é isso… comigo acontece direto também. Tem horas que tudo que eu queria era estar aí com você, nem que fosse só pra ficar perto, sem fazer nada, só aproveitando o momento. A distância atrapalha um pouco, mas não muda o quanto eu gosto de estar com você. E pensa pelo lado bom… daqui a pouco a gente se vê de novo, e vai ser ainda melhor. Enquanto isso, pode ir olhando pra página do lado',
+    imageUrl: '/calu/saudades.jpeg',
+  },
+  {
+    id: '08',
+    title: 'Quando estiver dodoi',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Ei… se você tá lendo isso é porque não tá se sentindo muito bem, né? Queria muito poder estar aí agora, cuidando de você de perto, fazendo carinho e não deixando você levantar pra nada. Mas mesmo não estando aí, eu quero que você sinta como se eu estivesse. Vai com calma, descansa, não tenta ser forte o tempo todo. Seu corpo só tá pedindo um tempinho, e você merece esse cuidado',
+    rightText:
+      'Se hidrata direitinho, tenta relaxar e não esquece DE COMER e que tem alguém aqui que se importa muito com você e queria poder cuidar de cada detalhe. Se pudesse, eu já tava aí te enchendo de beijinhos até você melhorar. E mesmo de longe, eu tô com você, viu? Se precisar, me chama, me conta como você tá. Eu vou ficar aqui torcendo pra você melhorar logo e mandando todo carinho do mundo pra você ficar bem de novo.',
+  },
+  {
+    id: '09',
+    title: 'Quando tiver um dia ruim',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Tem dias que simplesmente não dão certo, né? Parece que tudo acontece ao mesmo tempo e nada sai como a gente queria. Se hoje foi assim, tenta não se culpar tanto. Nem todo dia precisa ser bom pra você continuar sendo incrível. Às vezes, só aguentar já é mais do que suficiente. Você pode descansar, respirar e deixar esse dia ir embora sem levar tudo pro coração',
+    rightText:
+      'Amanhã é uma nova chance, com um pouco mais de calma e leveza. E mesmo hoje tendo sido difícil, isso não define você e nem tudo que ainda pode acontecer. Se quiser, me chama e desabafa, ou só fica ali comigo em silêncio. Eu tô aqui pra você, nos dias bons e principalmente nos ruins. E independente de como foi o seu dia, você continua sendo alguém muito especial pra mim.',
+  },
+  {
+    id: '10',
+    title: 'Quando tivermos uma discusão',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Se a gente discutiu e você veio parar aqui, respira um pouquinho antes de tudo. Eu sei que nesses momentos a gente pode falar coisas no impulso ou se magoar sem querer, mas nada disso muda o que eu sinto por você. A gente não é perfeito, e é normal ter desencontros às vezes. O que importa de verdade é que, mesmo assim, eu continuo escolhendo você',
+    rightText:
+      'Nenhuma discussão é maior do que a gente. Eu não quero ficar longe, não quero guardar mágoa e muito menos te perder por causa de um momento ruim. Quando as coisas acalmarem, a gente conversa, se entende e melhora juntos. Porque no fim, é sempre você. E vai continuar sendo.',
+  },
+  {
+    id: '11',
+    title: 'Quando estiver te deixando doidona',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Se você chegou até aqui, é porque provavelmente eu tô te irritando de propósito… e sim, pode ter certeza que é 100% intencional kkkkk. Eu sei exatamente como te deixar assim e mesmo assim não consigo parar, é mais forte que eu. Mas convenhamos… você também não facilita né, qualquer coisinha já fica doidona',
+    rightText:
+      'Mas relaxa, respira fundo e aceita: você me ama até eu te enchendo o saco kkkkk. Pode ficar bravinha, pode reclamar, pode falar que eu tô chatokkkkk não tem jeito. E eu vou continuar te perturbando sim, porque faz parte do pacote. Eu acho muito mais legal quando se ta doidonha kkkkkkk chatona.',
+  },
+  {
+    id: '12',
+    title: 'Estiver se sentindo sozinha',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Se em algum momento você se sentir sozinha, para um pouquinho e lembra de uma coisa importante: você nunca tá de verdade sozinha. Mesmo quando o silêncio aparece ou quando parece que ninguém tá por perto, tem alguém aqui pensando em você, se importando com você e querendo te ver bem. A distância pode até existir às vezes, mas ela não muda isso',
+    rightText:
+      'Eu tô com você de um jeito que vai além de estar perto fisicamente. Tô nas suas lembranças, nas nossas conversas, nas coisas que fazem você sorrir do nada. E sempre que esse sentimento aparecer, me chama, me conta, ou só fica ali comigo. Porque eu faço questão de ser companhia pra você, mesmo nos momentos mais silenciosos.',
+  },
+  {
+    id: '13',
+    title: 'Quando sentir medo',
+    desc: 'O que ainda vamos viver.',
+    content: 'Não sei oq escrever aqui ainda.',
+  },
+  {
+    id: '14',
+    title: 'Quando quiser conselho sobre amor',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Amor não é uma coisa que simplesmente acontece e pronto, ele também é escolha. Escolha de ficar, de cuidar, de entender e de continuar mesmo quando nem tudo tá perfeito. Nem sempre vai ser fácil, vão existir dúvidas, inseguranças e momentos confusos, mas isso faz parte de qualquer coisa que é de verdade. O importante é não desistir tão fácil do que faz bem pro seu coração',
+    rightText:
+      'No fim, amar alguém é decidir todos os dias continuar ali, mesmo com defeitos, mesmo com desafios. E quando é verdadeiro, sempre vale a pena tentar mais uma vez, conversar, entender e seguir em frente juntos. Então, independente de qualquer coisa, nunca desiste do amor… porque ele, quando é de verdade, sempre encontra um jeito de dar certo."',
+  },
+  {
+    id: '15',
+    title: 'Seu aniversario',
+    desc: 'O que ainda vamos viver.',
+    content:
+      'Acho que ia ler antes ne bobona kkkkkkkk no dia eu ponho o texto aqui.',
+    imageUrl: '/calu/drake.jpeg',
   },
 ]
 
@@ -76,9 +179,9 @@ const CoverFront = ({ onClick }: { onClick: () => void }) => (
       <div className="relative flex h-full w-full flex-col items-center justify-center rounded border border-[#C5A059] px-6 pt-8 transition-transform group-hover:scale-[1.01]">
         <div className="mb-6 text-3xl drop-shadow-md sm:text-4xl">🌷</div>
         <h1 className="text-center font-serif text-3xl leading-snug tracking-wide text-[#C5A059] sm:text-4xl">
-          Nosso Livro
+          Para sempre
           <br />
-          de Amor
+          DOIDONA
         </h1>
         <div className="my-6 h-[1px] w-16 bg-[#C5A059] opacity-60" />
         <p className="text-[10px] font-light tracking-[0.3em] text-[#C5A059] sm:text-xs">
@@ -89,11 +192,9 @@ const CoverFront = ({ onClick }: { onClick: () => void }) => (
   </div>
 )
 
-// MELHORIA 1: Verso da capa agora é uma folha em branco (guarda do livro)
 const CoverBack = () => (
   <Paper isLeft>
     <div className="flex h-full w-full items-center justify-center opacity-10">
-      {/* Pode colocar um enfeite sutil aqui, ou deixar em branco */}
       <Heart size={64} className="text-[#C5A059]" />
     </div>
   </Paper>
@@ -103,16 +204,15 @@ const IntroFront = ({ onNext }: { onNext: () => void }) => (
   <Paper>
     <div className="flex h-full flex-col items-center justify-center text-center">
       <h2 className="mb-6 font-serif text-3xl text-[#4A2F1D] sm:text-4xl">
-        Nossa História
+        Leia-me quando precisar de mim
       </h2>
       <p className="mb-10 max-w-sm text-base leading-relaxed text-gray-700 sm:text-lg">
-        Este livro guarda os momentos mais especiais da nossa jornada juntos.
-        Cada página foi escrita com carinho e representa um pedacinho do nosso
-        amor.
+        Leia cada topico desse livro, conforme for sentindo necessidade, escrevi
+        tudo do coração. Estou aqui por você
       </p>
       <button
         onClick={onNext}
-        className="flex animate-bounce items-center gap-2 font-semibold text-[#C5A059] transition-colors hover:text-[#8a6635]"
+        className="flex items-center gap-2 font-semibold text-[#C5A059] transition-colors hover:text-[#8a6635]"
       >
         Abrir Capítulos <ChevronRight size={20} />
       </button>
@@ -126,8 +226,8 @@ const TOCLeft = ({ onSelect }: { onSelect: (t: Topic) => void }) => (
       <h2 className="mb-8 inline-block border-b-2 border-[#C5A059]/30 pb-4 font-serif text-3xl text-[#4A2F1D]">
         Capítulos
       </h2>
-      <div className="flex flex-col gap-6">
-        {topicsData.slice(0, 2).map((t) => (
+      <div className="flex flex-col gap-4">
+        {topicsData.slice(0, 7).map((t) => (
           <div
             key={t.id}
             onClick={() => onSelect(t)}
@@ -140,7 +240,6 @@ const TOCLeft = ({ onSelect }: { onSelect: (t: Topic) => void }) => (
               <h3 className="text-lg font-semibold text-[#4A2F1D] transition-colors group-hover:text-[#C5A059]">
                 {t.title}
               </h3>
-              <p className="mt-1 text-sm text-gray-600">{t.desc}</p>
             </div>
           </div>
         ))}
@@ -151,9 +250,9 @@ const TOCLeft = ({ onSelect }: { onSelect: (t: Topic) => void }) => (
 
 const TOCRight = ({ onSelect }: { onSelect: (t: Topic) => void }) => (
   <Paper>
-    <div className="px-2 pt-[5.5rem]">
-      <div className="flex flex-col gap-6">
-        {topicsData.slice(2, 4).map((t) => (
+    <div className="px-2 pt-[1.5rem]">
+      <div className="flex flex-col gap-4">
+        {topicsData.slice(7, 20).map((t) => (
           <div
             key={t.id}
             onClick={() => onSelect(t)}
@@ -166,7 +265,6 @@ const TOCRight = ({ onSelect }: { onSelect: (t: Topic) => void }) => (
               <h3 className="text-lg font-semibold text-[#4A2F1D] transition-colors group-hover:text-[#C5A059]">
                 {t.title}
               </h3>
-              <p className="mt-1 text-sm text-gray-600">{t.desc}</p>
             </div>
           </div>
         ))}
@@ -197,23 +295,41 @@ const TopicLeft = ({ topic, onBack }: { topic: Topic; onBack: () => void }) => (
   </Paper>
 )
 
+// MÁGICA AQUI: Se não tem imagem, vira só texto contínuo
 const BaseRight = ({ topic }: { topic: Topic }) => (
   <div
     className="absolute inset-0 h-full w-full"
     style={{ left: '50%', width: '50%' }}
   >
     <Paper>
-      <div className="flex h-full flex-col items-center justify-center p-4">
-        <div className="group relative flex w-full flex-1 items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-[#C5A059]/40 bg-[#C5A059]/5 transition-colors hover:bg-[#C5A059]/10">
-          <p className="z-10 px-4 text-center font-medium text-[#C5A059]/80">
-            [ Espaço para colocar uma foto linda nossa aqui ]
+      {topic.imageUrl ? (
+        // Layout COM foto
+        <div className="flex h-full flex-col items-center justify-center pb-2">
+          <div className="relative flex w-full flex-1 items-center justify-center overflow-hidden rounded-md border-4 border-white bg-white shadow-sm">
+            <Image
+              src={topic.imageUrl || ''}
+              alt={topic.title || ''}
+              className="h-full w-full object-cover"
+              fill
+            />
+          </div>
+          <p className="mt-4 text-center font-serif text-sm text-[#4A2F1D]">
+            {topic.title}
           </p>
-          <Heart className="absolute h-32 w-32 text-[#C5A059] opacity-5" />
         </div>
-        <p className="mt-4 text-center text-xs italic text-gray-400">
-          Nossas memórias: {topic.title}
-        </p>
-      </div>
+      ) : (
+        // Layout SEM foto: Apenas a continuação do texto (rightText) e o número da página
+        <div className="flex h-full flex-col">
+          {/* O espaçamento abaixo garante que o texto comece na mesma altura do texto da página esquerda (pulando a área do botão/título) */}
+
+          <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-700 sm:text-base">
+            {topic.rightText}
+          </p>
+          <div className="mt-auto text-center font-serif text-sm text-[#C5A059]">
+            ~ {topic.id} ~
+          </div>
+        </div>
+      )}
     </Paper>
   </div>
 )
@@ -279,9 +395,7 @@ export default function LoveBook() {
   }
 
   return (
-    // Transformei em um flex-col para o botão ficar em baixo
-    <div className="flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#1c1c1c] p-4 font-sans sm:p-8">
-      {/* Container Principal do Livro */}
+    <div className="flex min-h-screen flex-col items-center justify-center overflow-hidden bg-zinc-200 p-4 font-sans sm:p-8">
       <div
         className="relative aspect-[1/1.2] w-full max-w-[800px] sm:aspect-[1.6/1]"
         style={{ perspective: '2500px' }}
@@ -315,7 +429,6 @@ export default function LoveBook() {
             back={<CoverBack />}
           />
 
-          {/* MELHORIA 2: Páginas fantasmas arrumadas (sem backfaceVisibility hidden) */}
           {isFlipping && (
             <div
               className="pointer-events-none absolute inset-0"
@@ -331,7 +444,6 @@ export default function LoveBook() {
                     delay: i * 0.1,
                     ease: 'easeInOut',
                   }}
-                  // Removido o backface-visibility daqui, então as páginas não somem no meio!
                   className="absolute left-1/2 h-full w-1/2 border-l border-black/5 bg-[#F9F6F0] shadow-[2px_0_10px_rgba(0,0,0,0.1)]"
                   style={{ transformOrigin: 'left center' }}
                 />
@@ -341,7 +453,6 @@ export default function LoveBook() {
         </motion.div>
       </div>
 
-      {/* MELHORIA 3: Botão externo para fechar o livro */}
       <AnimatePresence>
         {step > 0 && (
           <motion.button

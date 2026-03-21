@@ -15,6 +15,10 @@ export default function IndexDesktop() {
       <LoveLetterSection />
       <LoveBook />
       <MiniPlayer />
+
+      <div className="flex h-[300px] items-center justify-center bg-neutral-700 text-4xl font-semibold text-white">
+        em obras jaja adiciono o presente secreto
+      </div>
     </main>
   )
 }
