@@ -2,6 +2,8 @@
 
 import ScrollReveal from './scroll-reveal'
 import Image from 'next/image'
+import fonts from '@/styles/globals/fonts.module.css'
+import codigodebarras from '../../../../public/assets/codigodebarras.png'
 
 // Dados da linha do tempo
 const timelineEvents = [
@@ -54,7 +56,7 @@ const timelineEvents = [
     image: '/calu/sextodia.jpeg',
   },
   {
-    id: 7,
+    id: 8,
     date: 'Futuro',
     title: 'Para todos os proximos dias',
     description:
@@ -81,31 +83,56 @@ export default function Timeline() {
                   className={`relative flex flex-col md:flex-row ${isEven ? 'md:flex-row-reverse' : ''} items-center gap-8`}
                 >
                   {/* Ponto/Coração na linha central */}
-                  <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block">
-                    <ScrollReveal direction="scale" delay={200}>
-                      <div className="bg-paper border-red-sun/30 relative z-10 flex h-8 w-8 items-center justify-center rounded-full border shadow-sm">
-                        <div className="bg-red-sun h-3 w-3 rounded-full" />
-                      </div>
-                    </ScrollReveal>
-                  </div>
 
-                  {/* Metade da Tela: A Imagem */}
+                  {/* Metade da Tela: A Imagem
                   <div className="w-full md:w-1/2">
                     <ScrollReveal direction={isEven ? 'right' : 'left'}>
-                      {/* --- LINHA ALTERADA AQUI: Mudamos 'aspect-video' para 'aspect-[3/4]' --- */}
                       <div
-                        className={`relative aspect-[3/4] w-full overflow-hidden rounded-xl shadow-lg ${isEven ? 'md:ml-auto md:mr-12' : 'md:ml-12 md:mr-auto'}`}
+                        className={`flex h-[700px] w-[500px] items-center justify-center bg-white px-[10px] shadow-lg ${isEven ? 'md:ml-auto md:mr-12' : 'md:ml-12 md:mr-auto'}`}
                       >
-                        <Image
-                          src={event.image}
-                          alt={event.title}
-                          fill
-                          className="object-cover transition-transform duration-700 hover:scale-105"
-                        />
+                        <div
+                          className={`relative aspect-[1/1] w-full overflow-hidden rounded-xl`}
+                        >
+                          <Image
+                            src={event.image}
+                            alt={event.title}
+                            fill
+                            className="object-cover transition-transform duration-700 hover:scale-105"
+                          />
+                        </div>
                       </div>
                     </ScrollReveal>
-                  </div>
-
+                  </div> */}
+                  <ScrollReveal direction={isEven ? 'right' : 'left'}>
+                    <div className="mb-[100px] flex h-[400px] w-[350px] flex-col rounded-xl bg-white shadow-lg screen440:h-[450px] screen440:w-[400px] screen500:h-[480px] screen500:w-[430px] screen550:h-[550px] screen550:w-[500px]">
+                      <div className="mb-[-10px] pt-[2px] text-center text-sm font-light text-zinc-950">
+                        2026
+                      </div>
+                      <div className="m-[10px] flex-1 overflow-hidden rounded-lg bg-black">
+                        <Image
+                          src={event.image}
+                          alt="my"
+                          width={500}
+                          height={500}
+                        />
+                      </div>
+                      <div className="mb-2 flex h-[50px] items-center justify-between rounded-b-md bg-white px-[20px]">
+                        <div
+                          style={{ fontWeight: 300 }}
+                          className={`text-xl text-zinc-950 screen440:text-2xl ${fonts.monserrat}`}
+                        >
+                          Cá e Lu
+                        </div>
+                        <div className="w-[140px] screen440:w-[160px]">
+                          <Image
+                            src={codigodebarras}
+                            alt="codigodebarras"
+                            className="opacity-[0.8]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </ScrollReveal>
                   {/* Metade da Tela: O Texto */}
                   <div
                     className={`${isEven ? '' : 'md:translate-x-[50px]'} w-full text-center md:w-1/2 md:text-left`}

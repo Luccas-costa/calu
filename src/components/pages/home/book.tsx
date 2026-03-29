@@ -399,7 +399,7 @@ export default function LoveBook() {
   }
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-zinc-200 p-4 font-sans sm:p-8">
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#F4F1EB] p-4 font-sans sm:p-8">
       {/* TELA DE AVISO: Só aparece em telas pequenas e em pé (Portrait) */}
       <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#4A2F1D] px-6 text-center text-[#C5A059] md:hidden portrait:flex landscape:hidden">
         <div className="relative mb-6 flex h-20 w-20 items-center justify-center rounded-full border-2 border-[#C5A059]/30 bg-[#C5A059]/10">

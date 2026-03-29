@@ -5,6 +5,9 @@ import LoveLetterSection from '../lover-letters'
 import LoveBook from '../book'
 import Apelidos from '../apelidos'
 import MiniPlayer from '../player-music'
+import RaspadinhaPresentes from '../gifts'
+import Termo from '../termo'
+import Flower from '../flower'
 
 export default function IndexDesktop() {
   return (
@@ -15,7 +18,10 @@ export default function IndexDesktop() {
       <LoveLetterSection />
       <LoveBook />
       <MiniPlayer />
-
+      <RaspadinhaPresentes />
+      <Termo />
+      <Apelidos />
+      <Flower />
       <div className="flex h-[300px] items-center justify-center bg-neutral-700 text-4xl font-semibold text-white">
         em obras jaja adiciono o presente secreto
       </div>
