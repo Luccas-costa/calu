@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronRight, ArrowLeft, Smartphone, RotateCcw } from 'lucide-react'
 import Image from 'next/image'
-import { SendQuestion } from '@/db/insetdb'
 
 // --- TIPOS E DADOS ---
 interface Topic {
@@ -382,17 +381,9 @@ export default function LoveBook() {
   const [activeTopic, setActiveTopic] = useState<Topic>(topicsData[0])
   const [isFlipping, setIsFlipping] = useState(false)
 
-  const handleOpenBook = () => {
-    setStep(1)
-    SendQuestion('abriu o livro') // Salva no banco
-  }
-
-  // 2. Atualize a sua função handleTopicSelect existente
   const handleTopicSelect = (topic: Topic) => {
     setActiveTopic(topic)
     setIsFlipping(true)
-
-    SendQuestion(topic.title) // Salva o nome do capítulo no banco
 
     setTimeout(() => {
       setStep(3)
@@ -451,8 +442,7 @@ export default function LoveBook() {
           <Sheet
             index={0}
             step={step}
-            // MUDANÇA AQUI: Removemos o () => setStep(1) e colocamos a nossa nova função
-            front={<CoverFront onClick={handleOpenBook} />}
+            front={<CoverFront onClick={() => setStep(1)} />}
             back={<CoverBack />}
           />
 
