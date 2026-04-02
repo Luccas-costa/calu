@@ -170,23 +170,31 @@ export default function ScratchGiftsLuxoOriginal() {
   const prizes = useMemo(
     () => [
       {
-        title: 'Um Jantar Romântico à Luz de Velas 🍷',
+        title:
+          'Vale jantar, eu escolho lugar e faço tudo pra você só relaxar e aproveitar a noite',
         img: '/jantar_romantico.jpg',
       }, // Adicione imagens reais
       {
-        title: 'Um doce para ficar felizinha',
+        title:
+          'Vale final de semana, escolha um final de semana para mim voltar e te ver',
         img: '/massagem_luxo.jpg',
       },
       {
-        title: 'Vale um Beijão com Carinho e Abraço 😘',
+        title: 'Vale varios beijinhos e carinhos e muito grude',
         img: '/beijo_amor.jpg',
       },
       {
-        title: 'Sessão de Cinema em Casa com Popcorn Gourmet 🍿',
+        title:
+          'Vale presentinho, vai chegar um presente misterioso na sua casa',
         img: '/cinema_casa.jpg',
       },
       {
-        title: 'Piquenique no Parque com Vinho e Frutas 🧺',
+        title:
+          'Vale cartinha, escrevi uma cartinha especial para quando voce resgatar esse',
+        img: '/piquenique_parque.jpg',
+      },
+      {
+        title: 'Vale piquenique no Parque com Vinho e Frutas ',
         img: '/piquenique_parque.jpg',
       },
     ],
@@ -199,6 +207,7 @@ export default function ScratchGiftsLuxoOriginal() {
   const giftBoxImages = useMemo(
     () => [
       '/assets/presente.png', // USE A IMAGEM QUE VOCÊ FORNECEU
+      '/assets/presente.png',
       '/assets/presente.png',
       '/assets/presente.png',
       '/assets/presente.png',
