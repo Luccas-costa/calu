@@ -63,6 +63,70 @@ const timelineEvents = [
       'Falto eu falar de inumeros outros momentos nossos, tentei colocar os que foram mais importantes, mas e agora quem sabe do futuro, quais seram nossos proximos momentos e historias, não sei, mas vou amalos muito por ser com você lindona',
     image: '/calu/drake.jpeg',
   },
+  {
+    id: 9,
+    date: 'Futuro',
+    title: 'Para todos os proximos dias',
+    description:
+      'Falto eu falar de inumeros outros momentos nossos, tentei colocar os que foram mais importantes, mas e agora quem sabe do futuro, quais seram nossos proximos momentos e historias, não sei, mas vou amalos muito por ser com você lindona',
+    image: '/calu/novas/21-03.jpeg',
+  },
+  {
+    id: 10,
+    date: 'Futuro',
+    title: 'Para todos os proximos dias',
+    description:
+      'Falto eu falar de inumeros outros momentos nossos, tentei colocar os que foram mais importantes, mas e agora quem sabe do futuro, quais seram nossos proximos momentos e historias, não sei, mas vou amalos muito por ser com você lindona',
+    image: '/calu/novas/03-04.jpeg',
+  },
+  {
+    id: 11,
+    date: 'Futuro',
+    title: 'Para todos os proximos dias',
+    description:
+      'Falto eu falar de inumeros outros momentos nossos, tentei colocar os que foram mais importantes, mas e agora quem sabe do futuro, quais seram nossos proximos momentos e historias, não sei, mas vou amalos muito por ser com você lindona',
+    image: '/calu/novas/06-04.jpeg',
+  },
+  {
+    id: 12,
+    date: 'Futuro',
+    title: 'Para todos os proximos dias',
+    description:
+      'Falto eu falar de inumeros outros momentos nossos, tentei colocar os que foram mais importantes, mas e agora quem sabe do futuro, quais seram nossos proximos momentos e historias, não sei, mas vou amalos muito por ser com você lindona',
+    image: '/calu/novas/18-04.jpeg',
+  },
+  {
+    id: 13,
+    date: 'Futuro',
+    title: 'Para todos os proximos dias',
+    description:
+      'Falto eu falar de inumeros outros momentos nossos, tentei colocar os que foram mais importantes, mas e agora quem sabe do futuro, quais seram nossos proximos momentos e historias, não sei, mas vou amalos muito por ser com você lindona',
+    image: '/calu/novas/19-04.jpeg',
+  },
+  {
+    id: 14,
+    date: 'Futuro',
+    title: 'Para todos os proximos dias',
+    description:
+      'Falto eu falar de inumeros outros momentos nossos, tentei colocar os que foram mais importantes, mas e agora quem sabe do futuro, quais seram nossos proximos momentos e historias, não sei, mas vou amalos muito por ser com você lindona',
+    image: '/calu/novas/20-04.jpeg',
+  },
+  {
+    id: 15,
+    date: 'Futuro',
+    title: 'Para todos os proximos dias',
+    description:
+      'Falto eu falar de inumeros outros momentos nossos, tentei colocar os que foram mais importantes, mas e agora quem sabe do futuro, quais seram nossos proximos momentos e historias, não sei, mas vou amalos muito por ser com você lindona',
+    image: '/calu/novas/24-04.jpeg',
+  },
+  {
+    id: 16,
+    date: 'Futuro',
+    title: 'Para todos os proximos dias',
+    description:
+      'Falto eu falar de inumeros outros momentos nossos, tentei colocar os que foram mais importantes, mas e agora quem sabe do futuro, quais seram nossos proximos momentos e historias, não sei, mas vou amalos muito por ser com você lindona',
+    image: '/calu/novas/26-04.jpeg',
+  },
 ]
 
 export default function Timeline() {

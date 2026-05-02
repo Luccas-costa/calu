@@ -11,6 +11,7 @@ import Flower from '../flower'
 import StartMap from '../start-map'
 import Image from 'next/image'
 import redTulip from '../../../../../public/assets/red-tulip.png'
+import NasaPictures from '../nasa-pictures'
 
 export default function IndexDesktop() {
   return (
@@ -26,6 +27,7 @@ export default function IndexDesktop() {
       <Apelidos />
       <Flower />
       <StartMap />
+      <NasaPictures />
       <footer className="bg-ink px-6 py-16 text-center">
         <Image
           src={redTulip}
