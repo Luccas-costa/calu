@@ -8,6 +8,7 @@ interface LoadingScreenProps {
   onComplete: () => void
 }
 
+
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0)
   const [isFadingOut, setIsFadingOut] = useState(false)
