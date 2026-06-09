@@ -27,7 +27,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} bg-zinc-200 antialiased transition-all duration-200`}
+        className={`${inter.className} antialiased transition-all duration-200`}
       >
         {children}
       </body>
